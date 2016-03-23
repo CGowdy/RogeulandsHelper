@@ -13,32 +13,17 @@ namespace Roguelands_Helper
 {
     public partial class Form1 : Form
     {
-        private Dictionary<string, string> prefs = new Dictionary<string, string>();
-        private string prefLocation = "C:/Users/Collin/AppData/LocalLow/DefaultCompany/Roguelands/PlayerPrefs.txt";
+        PlayerPrefParser fp;
 
         public Form1()
         {
             InitializeComponent();
+            fp = new PlayerPrefParser();
         }
 
         private void btnLoadPlayerPrefs_Click(object sender, EventArgs e)
         {
-
-            StreamReader sr = new StreamReader(prefLocation);
-            StringBuilder sb = new StringBuilder();
-
-            string result = sr.ReadToEnd();
-
-            var dictionary = result.Split(';');
-
-            foreach(string part in dictionary)
-            {
-                string[] parts = part.Split(':');
-
-                prefs.Add(parts[0], parts[1]);
-            }
-
-            Console.WriteLine(prefs.ToString());
+            fp.Parse();
         }
     }
 }
