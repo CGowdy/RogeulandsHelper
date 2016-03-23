@@ -9,6 +9,7 @@ namespace Roguelands_Helper
 {
     class PlayerPrefParser
     {
+        public Dictionary<string, PrefValue> playerPrefs { get; set; }
 
         public string prefLocation { get; set; }
 
@@ -22,30 +23,30 @@ namespace Roguelands_Helper
             prefLocation = filepath;
         }
 
-        public Dictionary<string, string> Parse()
+        public Dictionary<string, PrefValue> Parse()
         {
             return Parse(prefLocation);
         }
 
-        public Dictionary<string, string> Parse(string filepath)
+        public Dictionary<string, PrefValue> Parse(string filepath)
         {
-            StreamReader sr = new StreamReader(filepath);
             StringBuilder sb = new StringBuilder();
-            Dictionary<string, string> prefs = new Dictionary<string, string>();
+            playerPrefs = new Dictionary<string, PrefValue>();
 
-            string result = sr.ReadToEnd();
-
-            var dictionary = result.Split(';');
-
-            foreach (string part in dictionary)
+            using (StreamReader sr = new StreamReader(filepath))
             {
-                string[] parts = part.Split(':');
+                string result = sr.ReadToEnd();
 
-                prefs.Add(parts[0], parts[1]);
+                var dictionary = result.Split(';');
+
+                foreach (string part in dictionary)
+                {
+                    string[] parts = part.Split(':');
+
+                    playerPrefs.Add(parts[0].Trim(), new PrefValue(parts[1].Trim(),parts[2].Trim()));
+                }
             }
-
-            Console.WriteLine(prefs.ToString());
-            return prefs;
+            return playerPrefs;
         }
 
 
