@@ -16,6 +16,15 @@ namespace Roguelands_Helper
         PlayerPrefParser fp;
         PlayerPrefs playerPrefs;
         DataTable allPrefs;
+        DataView allPrefsView;
+        DataView player0View;
+        DataView player1View;
+        DataView player2View;
+        DataView player3View;
+        DataView player4View;
+        DataView player5View;
+        DataView storageView;
+
 
 
         public Form1()
@@ -32,21 +41,28 @@ namespace Roguelands_Helper
             PopulateMain();
             PopulatePlayerData();
             PopulateStorageData();
-
-            dgvPlayer0.CellValueChanged += new DataGridViewCellEventHandler(RefreshMainDataGrid);
-            dgvPlayer1.CellValueChanged += new DataGridViewCellEventHandler(RefreshMainDataGrid);
-            dgvPlayer2.CellValueChanged += new DataGridViewCellEventHandler(RefreshMainDataGrid);
-            dgvPlayer3.CellValueChanged += new DataGridViewCellEventHandler(RefreshMainDataGrid);
-            dgvPlayer4.CellValueChanged += new DataGridViewCellEventHandler(RefreshMainDataGrid);
-            dgvPlayer5.CellValueChanged += new DataGridViewCellEventHandler(RefreshMainDataGrid);
-            dgvStorageChest.CellValueChanged += new DataGridViewCellEventHandler(RefreshMainDataGrid);
         }
 
         private void PopulateMain()
         {
             allPrefs = playerPrefs.GetAllPrefsDataTable();
-            dgvMainView.DataSource = allPrefs;
-            dgvMainView.Columns[1].ReadOnly = false;
+            allPrefsView = new DataView(allPrefs);
+            player0View = new DataView(allPrefs);
+            player1View = new DataView(allPrefs);
+            player2View = new DataView(allPrefs);
+            player3View = new DataView(allPrefs);
+            player4View = new DataView(allPrefs);
+            player5View = new DataView(allPrefs);
+            storageView = new DataView(allPrefs);
+            allPrefsView.Sort = "Key";
+            player0View.Sort = "Key";
+            player1View.Sort = "Key";
+            player2View.Sort = "Key";
+            player3View.Sort = "Key";
+            player4View.Sort = "Key";
+            player5View.Sort = "Key";
+            storageView.Sort = "Key";
+            dgvMainView.DataSource = allPrefsView;
         }
 
         public void PopulatePlayerData()
@@ -55,28 +71,118 @@ namespace Roguelands_Helper
 
             foreach (string playernum in playerNums)
             {
-                DataTable temp = playerPrefs.GetPlayerDataDataTable(playernum);
                 TabPage tp = (TabPage)this.Controls.Find("tpPlayer" + playernum, true).FirstOrDefault();
                 DataGridView dgv = (DataGridView)this.Controls.Find("dgvPlayer" + playernum, true).FirstOrDefault();
-                dgv.DataSource = temp;
-
-                if (temp.Rows.Count > 0)
+                switch (playernum)
                 {
-                    DataRow dr = temp.Select("Key LIKE '*name'").FirstOrDefault();
-                    if (dr == null)
-                    {
-                        tp.Text = "Empty";
-                        tp.Enabled = false;
-                        continue;
-                    }
-                    tp.Text = dr[1].ToString();
-                    tp.Enabled = true;
-                    dgv.Columns[1].ReadOnly = false;
-                }
-                else
-                {
-                    tp.Text = "Empty";
-                    tp.Enabled = false;
+                    case "0":
+                        BindingSource source0 = new BindingSource();
+                        source0.DataSource = player0View;
+                        source0.Filter = "Key LIKE '" + playernum + "*'";
+                        dgv.DataSource = source0;
+                        if (player0View.Count > 0)
+                        {
+                            int rowIndex = player0View.Find(playernum + "name");
+                            if (rowIndex < 0)
+                            {
+                                tp.Text = "Empty";
+                                tp.Enabled = false;
+                                continue;
+                            }
+                            tp.Text = player0View[rowIndex][1].ToString();
+                            tp.Enabled = true;
+                        }
+                        break;
+                    case "1":
+                        BindingSource source1 = new BindingSource();
+                        source1.DataSource = player1View;
+                        source1.Filter = "Key LIKE '" + playernum + "*'";
+                        dgv.DataSource = source1;
+                        if (player1View.Count > 0)
+                        {
+                            int rowIndex = player1View.Find(playernum + "name");
+                            if (rowIndex < 0)
+                            {
+                                tp.Text = "Empty";
+                                tp.Enabled = false;
+                                continue;
+                            }
+                            tp.Text = player1View[rowIndex][1].ToString();
+                            tp.Enabled = true;
+                        }
+                        break;
+                    case "2":
+                        BindingSource source2 = new BindingSource();
+                        source2.DataSource = player2View;
+                        source2.Filter = "Key LIKE '" + playernum + "*'";
+                        dgv.DataSource = source2;
+                        if (player2View.Count > 0)
+                        {
+                            int rowIndex = player2View.Find(playernum + "name");
+                            if (rowIndex < 0)
+                            {
+                                tp.Text = "Empty";
+                                tp.Enabled = false;
+                                continue;
+                            }
+                            tp.Text = player2View[rowIndex][1].ToString();
+                            tp.Enabled = true;
+                        }
+                        break;
+                    case "3":
+                        BindingSource source3 = new BindingSource();
+                        source3.DataSource = player3View;
+                        source3.Filter = "Key LIKE '" + playernum + "*'";
+                        dgv.DataSource = source3;
+                        if (player3View.Count > 0)
+                        {
+                            int rowIndex = player3View.Find(playernum + "name");
+                            if (rowIndex < 0)
+                            {
+                                tp.Text = "Empty";
+                                tp.Enabled = false;
+                                continue;
+                            }
+                            tp.Text = player3View[rowIndex][1].ToString();
+                            tp.Enabled = true;
+                        }
+                        break;
+                    case "4":
+                        BindingSource source4 = new BindingSource();
+                        source4.DataSource = player4View;
+                        source4.Filter = "Key LIKE '" + playernum + "*'";
+                        dgv.DataSource = source4;
+                        if (player4View.Count > 0)
+                        {
+                            int rowIndex = player4View.Find(playernum + "name");
+                            if (rowIndex < 0)
+                            {
+                                tp.Text = "Empty";
+                                tp.Enabled = false;
+                                continue;
+                            }
+                            tp.Text = player4View[rowIndex][1].ToString();
+                            tp.Enabled = true;
+                        }
+                        break;
+                    case "5":
+                        BindingSource source5 = new BindingSource();
+                        source5.DataSource = player5View;
+                        source5.Filter = "Key LIKE '" + playernum + "*'";
+                        dgv.DataSource = source5;
+                        if (player5View.Count > 0)
+                        {
+                            int rowIndex = player5View.Find(playernum + "name");
+                            if (rowIndex < 0)
+                            {
+                                tp.Text = "Empty";
+                                tp.Enabled = false;
+                                continue;
+                            }
+                            tp.Text = player5View[rowIndex][1].ToString();
+                            tp.Enabled = true;
+                        }
+                        break;
                 }
             }
 
@@ -84,16 +190,17 @@ namespace Roguelands_Helper
 
         public void PopulateStorageData()
         {
-            DataTable temp = playerPrefs.GetStorageData();
-            dgvStorageChest.DataSource = temp;
-            dgvStorageChest.Columns[1].ReadOnly = false;
+            BindingSource source = new BindingSource();
+            source.DataSource = storageView;
+            source.Filter = "Key LIKE '*storage*'";
+            dgvStorageChest.DataSource = source;
 
         }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
             File.Copy(fp.prefLocation, fp.prefLocation + ".backup", true);
-            
+
             StringBuilder sb = new StringBuilder();
 
             foreach (string key in playerPrefs.playerPrefs.Keys)
@@ -113,10 +220,6 @@ namespace Roguelands_Helper
 
         private void RefreshMainDataGrid(object sender, DataGridViewCellEventArgs e)
         {
-            foreach(DataRow row in (DataGridView)sender.Rows)
-            {
-
-            }
             return;
         }
     }
