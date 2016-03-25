@@ -25,8 +25,6 @@ namespace Roguelands_Helper
         DataView player5View;
         DataView storageView;
 
-
-
         public Form1()
         {
             InitializeComponent();
@@ -201,6 +199,7 @@ namespace Roguelands_Helper
         {
             File.Copy(fp.prefLocation, fp.prefLocation + ".backup", true);
 
+            playerPrefs.UpdatePlayerPrefs(allPrefs);
             StringBuilder sb = new StringBuilder();
 
             foreach (string key in playerPrefs.playerPrefs.Keys)
@@ -220,7 +219,7 @@ namespace Roguelands_Helper
 
         private void RefreshMainDataGrid(object sender, DataGridViewCellEventArgs e)
         {
-            return;
+
         }
     }
 }

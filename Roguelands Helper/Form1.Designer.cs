@@ -226,7 +226,6 @@
             this.dgvPlayer5.Name = "dgvPlayer5";
             this.dgvPlayer5.Size = new System.Drawing.Size(542, 495);
             this.dgvPlayer5.TabIndex = 1;
-            this.dgvPlayer5.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.RefreshMainDataGrid);
             // 
             // tpStorage
             // 
